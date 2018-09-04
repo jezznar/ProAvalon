@@ -11,8 +11,8 @@ socket.on("allChatToClient", function (data) {
 
 socket.on("roomChatToClient", function (data) {
     addToRoomChat(data);
-    console.log("Add to room chat");
-    console.log(data);
+    // console.log("Add to room chat");
+    // console.log(data);
 });
 
 socket.on("joinedGameSuccess", function(data){
@@ -211,7 +211,7 @@ socket.on("update-current-games-list", function (currentGames) {
             if(currentGame.passwordLocked === true){
                 lockStr = " <span class='glyphicon glyphicon-lock'></span>";
             }
-            console.log("lock str: " + lockStr);
+            // console.log("lock str: " + lockStr);
 
             
             if(currentGame.missionHistory){
@@ -237,22 +237,14 @@ socket.on("update-current-games-list", function (currentGames) {
             }
             
 
-            var str = "<tr> <td> " + 
-            currentGame.roomId + lockStr + 
-            ": " + currentGame.status + " " +
-
-            currentGame.numOfPlayersInside + 
-            "/10 <span style='padding-left: 10px;'>Spec: " + 
-            currentGame.numOfSpectatorsInside + "</span><br><span style='padding-right: 10px;'>Host: " + 
-            currentGame.hostUsername + "</span>" + 
-            
-            missionHistoryStr + " " +
-            // "M" + currentGame.missionNum + "." + 
-            // currentGame.pickNum +
-
-            // <div class="missionBox missionBoxSucceed" style="font-size: 14px;"><p>3</p></div>
-            
-            "</td> </tr>";
+            var str = "<tr> <td><strong>Room#" + 
+                currentGame.roomId + lockStr + "</strong>: " + 
+                currentGame.status + " [" + currentGame.numOfPlayersInside +  "/" + currentGame.maxNumPlayers + "]" + 
+                "<hr>"+ 
+                "Spectators: " + currentGame.numOfSpectatorsInside + 
+                "<br>Host: " + currentGame.hostUsername + 
+                "<br>" + missionHistoryStr +
+                "</td> </tr>";
 
            
            
@@ -300,7 +292,7 @@ socket.on("update-current-games-list", function (currentGames) {
 });
   
 socket.on("auto-join-room-id", function (roomId_, newRoomPassword) {
-    console.log("newRoomPassword: " + newRoomPassword);
+    // console.log("newRoomPassword: " + newRoomPassword);
     // console.log("auto join room");
     //received a request from server to auto join
     //likely we were the one who created the room
@@ -325,7 +317,7 @@ if (data) {
 socket.on("update-room-players", function (data) {
     //if an extra person joins the game, play the chime
 
-    console.log("update room players");
+    // console.log("update room players");
 
     // showDangerAlert("Test");
     oldData = roomPlayersData;
@@ -386,8 +378,8 @@ socket.on("update-room-spectators", function(spectatorUsernames){
     }
 
     var newUsernameIndex = -1;
-    console.log(oldSpectators);
-    console.log(spectatorUsernames);
+    // console.log(oldSpectators);
+    // console.log(spectatorUsernames);
 
     for(var i = 0; i < oldSpectators.length; i++){
         if(oldSpectators.indexOf(spectatorUsernames[i]) === -1){
@@ -398,7 +390,7 @@ socket.on("update-room-spectators", function(spectatorUsernames){
         newUsernameIndex = spectatorUsernames.length - 1;
     }
 
-    console.log("new player: " + spectatorUsernames[newUsernameIndex]);
+    // console.log("new player: " + spectatorUsernames[newUsernameIndex]);
 
     // if an extra person joins the room
     if(spectatorUsernames && oldSpectators.length < spectatorUsernames.length && spectatorUsernames[newUsernameIndex] !== ownUsername){
@@ -462,7 +454,6 @@ socket.on("correctRoomPassword", function(){
 socket.on("update-room-info", function(data){
     // data.maxNumPlayers
     $(".gameInfoMaxPlayers")[0].innerText = roomPlayersData.length + "/" + data.maxNumPlayers;
-
     //if a game has started
     if(gameData){
         $(".gameInfoMaxPlayers").addClass("hidden");
