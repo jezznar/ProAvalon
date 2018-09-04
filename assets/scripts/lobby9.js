@@ -754,8 +754,8 @@ function drawAndPositionAvatars() {
                 var heightOfGun = $(".gun").height();
                 var proposedUserAvatar = $($("#mainRoomBox div")[getIndexFromUsername(gameData.proposedTeam[i])]);
                 $($(".gun")[i]).animate({
-                    top: proposedUserAvatar.position().top - (heightOfGun*1.10) + (proposedUserAvatar.height()) + "px" ,
-                    left: proposedUserAvatar.position().left - (widOfGun/4) + (proposedUserAvatar.width()) + "px",
+                    top: proposedUserAvatar.position().top - (heightOfGun*0.25) + (proposedUserAvatar.height()) + "px" ,
+                    left: proposedUserAvatar.position().left + (widOfGun/2) + "px",
                 }, 500);
                 $($(".gun")[i]).removeClass("gunBefore"); 
                 $($(".gun")[i]).addClass("gunAfter"); 
@@ -777,8 +777,8 @@ function drawAndPositionAvatars() {
             var widOfGun = $(".gun").width();
             var heightOfGun = $(".gun").height();
             var proposedUserAvatar = $($("#mainRoomBox div")[getIndexFromUsername(gameData.proposedTeam[i])]);
-            $($(".gun")[i]).css("top", proposedUserAvatar.position().top - (heightOfGun*1.10) + (proposedUserAvatar.height()) + "px"); 
-            $($(".gun")[i]).css("left", proposedUserAvatar.position().left + (proposedUserAvatar.width()) - (widOfGun/4) + "px"); 
+            $($(".gun")[i]).css("top", proposedUserAvatar.position().top - (heightOfGun*0.25) + (proposedUserAvatar.height()) + "px"); 
+            $($(".gun")[i]).css("left", proposedUserAvatar.position().left + (widOfGun/2) + "px");
             
         }
     }
@@ -1847,7 +1847,7 @@ function scaleMiddleBoxes(){
     
     //Max height of shields is 43 px.
     //so for new scaled size, 43 times by the ratio
-    $(".gun").css("height", 43*playerDivHeightRatio + "px");
+    $(".gun").css("height", 60*playerDivHeightRatio + "px");
 
     var startScalingHeight = 200;
     var maxHeightOfBoxes = 60; //in px
