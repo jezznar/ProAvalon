@@ -94,7 +94,7 @@ function draw() {
 
         drawClaimingPlayers(roomPlayersData.claimingPlayers);
 
-        drawguns();
+        drawGuns();
 
         console.log(highlightedAvatars);
         restoreHighlightedAvatars(highlightedAvatars);
@@ -124,7 +124,7 @@ function draw() {
             }
             else if (gameData.phase === "voting") {
 
-                drawguns();
+                drawGuns();
 
                 var str = "";
 
@@ -189,7 +189,7 @@ function draw() {
                 setStatusBarText(str);
                 
 
-                drawguns();
+                drawGuns();
                 drawVotes(gameData.votes);
             }
             else if (gameData.phase === "assassination") {
@@ -701,7 +701,7 @@ function drawAndPositionAvatars() {
   
 
 
-  var whenToShowguns = [
+  var whenToShowGuns = [
     "voting",
     "missionVoting",
     "assassination",
@@ -710,14 +710,14 @@ function drawAndPositionAvatars() {
 
   var lastPickNum = 0;
   var lastMissionNum = 0;
-  function drawguns() {
+  function drawGuns() {
     $(".gun img").css("max-width", "100%"); 
     $(".gun").css("max-width", "100%"); 
 
     
 
     if(gameData && gameData.phase){
-        if(whenToShowguns.indexOf(gameData.phase) === -1){
+        if(whenToShowGuns.indexOf(gameData.phase) === -1){
             //$(".gun").css("left", "50%"); 
             //$(".gun").css("top", "50%"); 
 			$(".gun").css("max-width", "100%"); 
@@ -1022,7 +1022,7 @@ function enableDisableButtons() {
         }
 
         else if (gameData.phase === "finished") {
-            drawguns();
+            drawGuns();
             disableButtons();
         }
     }
