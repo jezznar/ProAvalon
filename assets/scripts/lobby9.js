@@ -1840,7 +1840,14 @@ function scaleMiddleBoxes(){
     // $("#missionsBox").css("transform", "translateX(-50%) scale(" + ratioToReduce + ")")
     // $("#missionsBox").css("transform-origin", "bottom");
     $("#missionsBox").css("transform", "translateX(-50%) scale(" + ratioToReduce + ")");
-
+    
+    //Get the scaling factor of the player avatar img so far (since we are scaling this correctly already)
+    //Max pixels of avatar is 128, so this will give us scaling ratio
+    var playerDivHeightRatio = $(".playerDiv").height()/128; 
+    
+    //Max height of shields is 43 px.
+    //so for new scaled size, 43 times by the ratio
+    $(".gun").css("height", 43*playerDivHeightRatio + "px");
 
     var startScalingHeight = 200;
     var maxHeightOfBoxes = 60; //in px
