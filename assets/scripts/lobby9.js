@@ -711,23 +711,25 @@ function drawAndPositionAvatars() {
   var lastPickNum = 0;
   var lastMissionNum = 0;
   function drawGuns() {
-    $(".gun img").css("width", $("#mainRoomBox div").width() + "px"); 
-    $(".gun").css("width", $("#mainRoomBox div").width() + "px"); 
+    $(".gun img").css("max-width", "100%"); 
+    $(".gun").css("max-width", "100%"); 
 
     
 
     if(gameData && gameData.phase){
         if(whenToShowGuns.indexOf(gameData.phase) === -1){
-            $(".gun").css("left", "50%"); 
-            $(".gun").css("top", "50%"); 
+            //$(".gun").css("left", "50%"); 
+            //$(".gun").css("top", "50%"); 
+			$(".gun").css("max-width", "100%"); 
             $(".gun").css("transform", "translate(-50%,-50%)"); 
             $(".gun").removeClass("gunAfter"); 
             $(".gun").addClass("gunBefore"); 
         }
     }
     else{
-        $(".gun").css("left", "50%"); 
-        $(".gun").css("top", "50%"); 
+        //$(".gun").css("left", "50%"); 
+        //$(".gun").css("top", "50%"); 
+		$(".gun").css("max-width", "100%"); 
         $(".gun").css("transform", "translate(-50%,-50%)"); 
         $(".gun").removeClass("gunAfter"); 
         $(".gun").addClass("gunBefore"); 
@@ -735,9 +737,10 @@ function drawAndPositionAvatars() {
     
     if(gameData && (lastPickNum !== gameData.pickNum || lastMissionNum !== gameData.missionNum)){
         // $(".gun").css("width", $("#mainRoomBox div").width() + "px"); 
-        $(".gun").css("left", "50%"); 
-        $(".gun").css("top", "50%"); 
-        $(".gun").css("transform", "translate(-50%,-50%)"); 
+        //$(".gun").css("left", "50%"); 
+        //$(".gun").css("top", "50%"); 
+		$(".gun").css("max-width", "100%"); 
+        $(".gun").css("transform", "translate(-50%,-50%)"); //turn of translates
         $(".gun").removeClass("gunAfter"); 
         $(".gun").addClass("gunBefore"); 
 
@@ -749,10 +752,10 @@ function drawAndPositionAvatars() {
 
                 var widOfGun = $(".gun").width();
                 var heightOfGun = $(".gun").height();
-
+                var proposedUserAvatar = $($("#mainRoomBox div")[getIndexFromUsername(gameData.proposedTeam[i])]);
                 $($(".gun")[i]).animate({
-                    top: $($("#mainRoomBox div")[getIndexFromUsername(gameData.proposedTeam[i])]).position().top + (heightOfGun*1.5) + "px" ,
-                    left: $($("#mainRoomBox div")[getIndexFromUsername(gameData.proposedTeam[i])]).position().left + (widOfGun/2) + "px",
+                    top: proposedUserAvatar.position().top - (heightOfGun*0.25) + (proposedUserAvatar.height()) + "px" ,
+                    left: proposedUserAvatar.position().left + (widOfGun/2) + "px",
                 }, 500);
                 $($(".gun")[i]).removeClass("gunBefore"); 
                 $($(".gun")[i]).addClass("gunAfter"); 
@@ -773,10 +776,9 @@ function drawAndPositionAvatars() {
 
             var widOfGun = $(".gun").width();
             var heightOfGun = $(".gun").height();
-
-
-            $($(".gun")[i]).css("top", $($("#mainRoomBox div")[getIndexFromUsername(gameData.proposedTeam[i])]).position().top + (heightOfGun*1.5) + "px"); 
-            $($(".gun")[i]).css("left", $($("#mainRoomBox div")[getIndexFromUsername(gameData.proposedTeam[i])]).position().left + (widOfGun/2) + "px"); 
+            var proposedUserAvatar = $($("#mainRoomBox div")[getIndexFromUsername(gameData.proposedTeam[i])]);
+            $($(".gun")[i]).css("top", proposedUserAvatar.position().top - (heightOfGun*0.25) + (proposedUserAvatar.height()) + "px"); 
+            $($(".gun")[i]).css("left", proposedUserAvatar.position().left + (widOfGun/2) + "px");
             
         }
     }
@@ -900,6 +902,7 @@ function enableDisableButtons() {
 
       
     if (gameStarted === false) {
+        document.querySelector("#claimButton").classList.add("disabled");
         //Host
         if (ownUsername === getUsernameFromIndex(0)) {
             document.querySelector("#green-button").classList.remove("disabled");
@@ -918,7 +921,6 @@ function enableDisableButtons() {
         else if (isSpectator === true) {
             document.querySelector("#green-button").classList.remove("disabled");
             document.querySelector("#green-button").innerText = "Join";
-
             document.querySelector("#red-button").classList.add("disabled");
             // document.querySelector("#red-button").innerText = "Disabled";
         }
@@ -934,6 +936,7 @@ function enableDisableButtons() {
         }
     }
     else if (gameStarted === true && isSpectator === false) {
+        document.querySelector("#claimButton").classList.remove("disabled");
         //if we are in picking phase
         if (gameData.phase === "picking") {
             document.querySelector("#green-button").classList.add("disabled");
@@ -1042,6 +1045,7 @@ function disableButtons() {
 
     document.querySelector("#red-button").classList.add("disabled");
     // document.querySelector("#red-button").innerText = "Disabled";
+
 }
 
 function countHighlightedAvatars() {
@@ -1836,7 +1840,14 @@ function scaleMiddleBoxes(){
     // $("#missionsBox").css("transform", "translateX(-50%) scale(" + ratioToReduce + ")")
     // $("#missionsBox").css("transform-origin", "bottom");
     $("#missionsBox").css("transform", "translateX(-50%) scale(" + ratioToReduce + ")");
-
+    
+    //Get the scaling factor of the player avatar img so far (since we are scaling this correctly already)
+    //Max pixels of avatar is 128, so this will give us scaling ratio
+    var playerDivHeightRatio = $(".playerDiv").height()/128; 
+    
+    //Max height of shields is 43 px.
+    //so for new scaled size, 43 times by the ratio
+    $(".gun").css("height", 60*playerDivHeightRatio + "px");
 
     var startScalingHeight = 200;
     var maxHeightOfBoxes = 60; //in px
