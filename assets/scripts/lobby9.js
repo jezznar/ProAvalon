@@ -547,9 +547,13 @@ function resetGunPosition() {
     $(".gun").addClass("gunBefore");
 }
 
-function distributeGuns() {
-    $(".gun").removeClass("gunBefore");
-    $(".gun").addClass("gunAfter");
+function distributeGuns(number) {
+    var guns = $(".gun");
+
+    for(var i = 0; i < number; i++){
+        $(guns[i]).removeClass("gunBefore");
+        $(guns[i]).addClass("gunAfter");
+    }
 }
 
 var playerDivHeightPercent = 30;
@@ -780,10 +784,11 @@ function drawAndPositionAvatars() {
                 $($(".gun")[i]).removeClass("gunBefore"); 
                 $($(".gun")[i]).addClass("gunAfter"); 
 		*/
-                distributeGuns();
                 lastPickNum = gameData.pickNum;
                 lastMissionNum = gameData.missionNum;
             }   
+            distributeGuns(gameData.proposedTeam.length);
+            
         }
     }
     else{

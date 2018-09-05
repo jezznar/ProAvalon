@@ -361,6 +361,7 @@ p {
 
 .gun {
     pointer-events:none;
+    z-index: 11; /*Above the missions box which is 10*/
 }
 
 .role-p {
