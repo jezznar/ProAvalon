@@ -103,11 +103,14 @@ passport.deserializeUser(User.deserializeUser());
 
 app.set("view engine", "ejs");
 //if the production site, then use a cache that lasts for 30 mins.
+var path = require('path');
+var assetsPath = path.join(__dirname, '/assets');
+console.log(__dirname);
 if(platform === "online"){
-	app.use(express.static("assets", {maxAge: 1800000})); //expires in 30 minutes.
+	app.use(express.static(assetsPath, {maxAge: 1800000})); //expires in 30 minutes.
 }
 else{
-	app.use(express.static("assets")); //expires in 30 minutes.	
+	app.use(express.static(assetsPath)); //expires in 30 minutes.	
 }
 // var path = require('path'); 
 // app.use(express.static(path.join(__dirname, 'assets'), { maxAge: '2 days' }));
