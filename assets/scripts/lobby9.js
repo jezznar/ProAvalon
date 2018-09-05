@@ -929,7 +929,6 @@ function enableDisableButtons() {
 
       
     if (gameStarted === false) {
-        document.querySelector("#claimButton").classList.add("disabled");
         //Host
         if (ownUsername === getUsernameFromIndex(0)) {
             document.querySelector("#green-button").classList.remove("disabled");
@@ -963,7 +962,6 @@ function enableDisableButtons() {
         }
     }
     else if (gameStarted === true && isSpectator === false) {
-        document.querySelector("#claimButton").classList.remove("disabled");
         //if we are in picking phase
         if (gameData.phase === "picking") {
             document.querySelector("#green-button").classList.add("disabled");
