@@ -1834,13 +1834,15 @@ function scaleMiddleBoxes(){
     $("#missionsBox").css("transform", "translateX(-50%) scale(" + ratioToReduce + ")");
     var playerDivHeightRatio = $(".playerDiv").height()/128; 
     var proposedTeamIcon = docCookies.getItem("optionDisplayProposedTeamIcon");
-    if(proposedTeamIcon === 'shield'){
-        $(".gun").css("height", 130*playerDivHeightRatio + "px");
+    if(proposedTeamIcon === "shield"){
+        var maxHeight = 51;
+        var maxWidth = 40;
+        $(".gunImg").css("height", maxHeight*playerDivHeightRatio + "px");    
         //needs to be scaled this way as reducing img size still overshoots
-        $(".gunImg").css("max-height", "80%");
-        $(".gunImg").css("max-width", "80%");
+        $(".gunImg").css("max-height", maxHeight*playerDivHeightRatio + "px");       
+        $(".gunImg").css("max-width", maxWidth*playerDivHeightRatio + "px");    
     } else {
-        $(".gun").css("height", 35*playerDivHeightRatio + "px");
+        $(".gun").css("height", 43*playerDivHeightRatio + "px");
         $(".gunImg").css("max-height", "100%");
         $(".gunImg").css("max-width", "100%");
     }
@@ -1938,8 +1940,8 @@ function getGunPos(icon) {
     var position = {};
     if (icon === "shield") {
         position = {
-            "x": 5,
-            "y": 0.8
+            "x": 2,
+            "y": 1.8       
         }
     } else {
         // default: icon = "gun"
